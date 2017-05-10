@@ -55,6 +55,18 @@ articleView.handleAuthorFilter = function() {
 };
 
 articleView.handleCategoryFilter = function() {
+  $('#category-filter').on('change', function(){
+
+    var $selection = $(this).val();
+
+    if ($selection) {
+      $('article').hide();
+      $('article[data-category="' + $selection + '"]').fadeIn(500);
+    } else {
+      $('article:not([data-category="cat"])').fadeIn(750);
+    }
+    $('#author-filter').val('');
+  });
   // TODO: Just like we do for #author-filter above, we should handle change events on the #category-filter element.
   //       When an option with a value is selected, hide all the articles, then reveal the matches.
   //       When the blank (default) option is selected, show all the articles, except for the template.
@@ -90,4 +102,5 @@ articleView.setTeasers = function() {
 $(document).ready(function() {
   articleView.populateFilters();
   articleView.handleAuthorFilter();
+  articleView.handleCategoryFilter();
 })
