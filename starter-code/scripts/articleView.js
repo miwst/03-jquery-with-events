@@ -36,21 +36,37 @@ articleView.handleAuthorFilter = function() {
     // REVIEW: Inside this function, "this" is the element that triggered the event handler function we're
     //         defining. "$(this)" is using jQuery to select that element, so we can chain jQuery methods
     //         onto it.
-    if ($(this).val()) {
+    var $selection = $(this).val();
+    if ($selection) {
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
+      $('article').hide();
       //       and then show just the ones that match for the author that was selected.
+      $('article[data-author="' + $selection + '"]').fadeIn(500);
+
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
 
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
-
+      $('article[data-author]').fadeIn(750);
     }
     $('#category-filter').val('');
   });
 };
 
 articleView.handleCategoryFilter = function() {
+  $('#category-filter').on('change', function(){
+
+    var $selection = $(this).val();
+
+    if ($selection) {
+      $('article').hide();
+      $('article[data-category="' + $selection + '"]').fadeIn(500);
+    } else {
+      $('article:not([data-category="cat"])').fadeIn(750);
+    }
+    $('#author-filter').val('');
+  });
   // TODO: Just like we do for #author-filter above, we should handle change events on the #category-filter element.
   //       When an option with a value is selected, hide all the articles, then reveal the matches.
   //       When the blank (default) option is selected, show all the articles, except for the template.
@@ -84,5 +100,7 @@ articleView.setTeasers = function() {
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
 $(document).ready(function() {
-
+  articleView.populateFilters();
+  articleView.handleAuthorFilter();
+  articleView.handleCategoryFilter();
 })
