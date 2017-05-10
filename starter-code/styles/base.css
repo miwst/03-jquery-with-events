@@ -12,6 +12,10 @@ hr {
   width: 80%;
 }
 
+h1, h2 {
+  color: rgb(34, 127, 119);
+}
+
 /*TEXT STYLES
 =======================================*/
 p {
@@ -27,7 +31,7 @@ address {
 
 a, a:link, a:active {
   text-decoration: none;
-  color: #777;
+  color: rgb(60, 193, 184);
 }
 
 a:hover, a:focus {
